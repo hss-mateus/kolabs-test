@@ -8,6 +8,18 @@ class ThemoviedbService
     make_request('movie', query)
   end
 
+  def search_tv_shows(query)
+    make_request('tv', query)
+  end
+
+  def search_people(query)
+    make_request('person', query)
+  end
+
+  def search_all(query)
+    make_request('multi', query)
+  end
+
   private
 
   def make_request(url, query)
