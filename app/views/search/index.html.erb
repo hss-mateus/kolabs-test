@@ -1,0 +1,18 @@
+<% unless @matches.nil? %>
+
+  <% @matches.each do |match| %>
+
+    <% if match['media_type'] == 'movie' %>
+      <%= match['title'] %>
+    <% else  %>
+      <%= match['name'] %>
+    <% end%>
+
+    <br />
+  <% end %>
+
+<% else %>
+
+  Nothing found
+
+<% end %>
