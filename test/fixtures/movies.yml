@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  release_date: 2020-10-09
+  description: MyText
+  poster: MyString
+  score: 1.5
+  genres: MyString
+
+two:
+  title: MyString
+  release_date: 2020-10-09
+  description: MyText
+  poster: MyString
+  score: 1.5
+  genres: MyString
