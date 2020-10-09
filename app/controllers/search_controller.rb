@@ -1,7 +1,5 @@
 class SearchController < ApplicationController
-  def initialize
-    @tmdb_service = ThemoviedbService.new
-  end
+  before_action :tmdb_service
 
   def index
     query = params[:q]
@@ -24,6 +22,8 @@ class SearchController < ApplicationController
       end
   end
 
+  private
+
   def filter_movies(results)
     return if results.nil? || results.empty?
 
@@ -34,6 +34,8 @@ class SearchController < ApplicationController
     return if @movies.nil? || @movies.empty?
 
     movies = @movies.map do |m|
+      return nil if m['poster_path'].nil?
+
       { id: m['id'],
         title: m['original_title'],
         release_date: m['release_date'],
@@ -46,5 +48,9 @@ class SearchController < ApplicationController
     end
 
     Movie.insert_all(movies)
+  end
+
+  def tmdb_service
+    @tmdb_service = ThemoviedbService.new
   end
 end
