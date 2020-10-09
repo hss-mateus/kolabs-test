@@ -2,15 +2,32 @@
   <%= f.label :title %>
   <%= f.text_field :title %>
 
+  <br />
+
   <%= f.label :release_date %>
   <%= f.date_field :release_date %>
+
+  <br />
 
   <%= f.label :description %>
   <%= f.text_area :description %>
 
+  <br />
+
   <%= f.label :poster %>
+  <%= f.text_field :poster %>
+
+  <br />
 
   <%= f.label :score %>
+  <%= f.number_field :score, in: 0.0..10.0, step: 0.1 %>
+
+  <br />
 
   <%= f.label :genres %>
+  <%= f.text_field :genres %>
+
+  <br />
+
+  <%= f.submit 'Add' %>
 <% end %>
