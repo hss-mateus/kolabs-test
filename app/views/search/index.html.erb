@@ -1,4 +1,18 @@
-<% unless @matches.nil? %>
+<%= form_with(url: '/', method: 'get') do %>
+  <%= text_field_tag(:q) %>
+  <%= submit_tag('Search') %>
+<% end %>
+
+
+<% if @matches.nil? %>
+
+  Type above to search
+
+<% elsif @matches.empty? %>
+
+  Nothing found
+
+<% else %>
 
   <% @matches.each do |match| %>
 
@@ -10,9 +24,5 @@
 
     <br />
   <% end %>
-
-<% else %>
-
-  Nothing found
 
 <% end %>
