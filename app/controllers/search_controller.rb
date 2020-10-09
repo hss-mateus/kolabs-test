@@ -38,7 +38,7 @@ class SearchController < ApplicationController
         title: m['original_title'],
         release_date: m['release_date'],
         description: m['overview'],
-        poster: m['poster_path'],
+        poster: 'https://image.tmdb.org/t/p/w300' + m['poster_path'],
         score: m['vote_average'],
         genres: m['genre_ids'].join(','),
         created_at: Time.now,
