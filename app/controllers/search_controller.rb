@@ -13,9 +13,38 @@ class SearchController < ApplicationController
       when 'people'
         @tmdb_service.search_people query
       when 'movies'
-        @tmdb_service.search_movies query
+        @movies = @tmdb_service.search_movies query
+        store_movies
+        @movies
       else
-        @tmdb_service.search_all query
+        results = @tmdb_service.search_all query
+        @movies = filter_movies results
+        store_movies
+        results
       end
+  end
+
+  def filter_movies(results)
+    return if results.nil? || results.empty?
+
+    results.select { |r| r['media_type'] == 'movie' }
+  end
+
+  def store_movies
+    return if @movies.nil? || @movies.empty?
+
+    movies = @movies.map do |m|
+      { id: m['id'],
+        title: m['original_title'],
+        release_date: m['release_date'],
+        description: m['overview'],
+        poster: m['poster_path'],
+        score: m['vote_average'],
+        genres: m['genre_ids'].join(','),
+        created_at: Time.now,
+        updated_at: Time.now }
+    end
+
+    Movie.insert_all(movies)
   end
 end
