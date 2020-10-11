@@ -4,38 +4,38 @@ class ThemoviedbServiceTest < ActiveSupport::TestCase
   tmdb_service = ThemoviedbService.new
 
   test 'should get at least one movie' do
-    result = tmdb_service.search_movies 'a'
+    result = tmdb_service.search 'a', 'movie'
 
-    assert_not_empty result
+    assert result[:total_pages].positive?
   end
 
   test 'should get at least one person' do
-    result = tmdb_service.search_people 'a'
+    result = tmdb_service.search 'a', 'person'
 
-    assert_not_empty result
+    assert result[:total_pages].positive?
   end
 
   test 'should get at least one tv show' do
-    result = tmdb_service.search_tv_shows 'a'
+    result = tmdb_service.search 'a', 'tv'
 
-    assert_not_empty result
+    assert result[:total_pages].positive?
   end
 
   test 'should get at least one generic result' do
-    result = tmdb_service.search_all 'a'
+    result = tmdb_service.search 'a'
 
-    assert_not_empty result
+    assert result[:total_pages].positive?
   end
 
   test 'should retrieve an empty response for bad input' do
-    result_movies = tmdb_service.search_movies '??????'
-    result_people = tmdb_service.search_people '??????'
-    result_shows = tmdb_service.search_tv_shows '??????'
-    result_all = tmdb_service.search_tv_shows '??????'
+    movies = tmdb_service.search '??????', 'movie'
+    people = tmdb_service.search '??????', 'person'
+    shows = tmdb_service.search '??????', 'tv'
+    all = tmdb_service.search '??????'
 
-    assert_empty result_movies
-    assert_empty result_people
-    assert_empty result_shows
-    assert_empty result_all
+    assert movies[:total_pages].zero?
+    assert people[:total_pages].zero?
+    assert shows[:total_pages].zero?
+    assert all[:total_pages].zero?
   end
 end
