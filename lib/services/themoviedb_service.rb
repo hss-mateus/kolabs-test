@@ -18,6 +18,9 @@ class ThemoviedbService
                                   query: query,
                                   page: page })
 
-    JSON.parse(response.body)['results']
+    body = JSON.parse response.body
+
+    { total_pages: body['total_pages'],
+      results: body['results'] }
   end
 end

@@ -4,9 +4,12 @@ class SearchController < ApplicationController
   def index
     query = params[:q]
 
-    @filters = [['All', :all], ['Movies', :movies], ['TV Shows', :tv_shows], ['People', :people]]
+    @filters = [['All', :all], ['Movies', :movie], ['TV Shows', :tv], ['People', :person]]
 
-    @matches = @tmdb_service.search query, params[:filter], params[:page]
+    response = @tmdb_service.search query, params[:filter], params[:page]
+
+    @total_pages = response[:total_pages]
+    @matches = response[:results]
 
     @movies = filter_movies
     store_movies

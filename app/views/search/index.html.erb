@@ -20,9 +20,10 @@
         <% @filters.each do |filter| %>
           <% classes = 'list-group-item list-group-item-action list-group-item-light border-0' %>
           <% classes += params['filter'] == filter[1].to_s ? ' active' : '' %>
+          <% classes += params['q'] ? '' : ' disabled' %>
 
           <%= link_to filter[0],
-            params.permit(:q, :filter).merge(filter: filter[1]),
+            params.permit(:q, :filter, :page).merge(filter: filter[1]),
             class: classes
           %>
         <% end %>
@@ -31,13 +32,15 @@
 
     <div class="col-md-9">
       <% if @matches.nil? %>
-        Search for something in the box above
+        <i class="text-muted">Search for something in the box above</i>
       <% elsif @matches.empty? %>
         There are no content that matched your query.
       <% else %>
         <% @matches && @matches.each do |result| %>
           <%= render partial: 'result', locals: {result: result} %>
         <% end %>
+
+        <%= render partial: 'pagination' %>
       <% end %>
     </div>
   </div>
