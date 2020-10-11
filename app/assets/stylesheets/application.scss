@@ -24,3 +24,14 @@ body {
   text-overflow: ellipsis;
 }
 
+.movie {
+  .movie-actions {
+    visibility: hidden;
+  }
+
+  &:hover {
+    .movie-actions {
+      visibility: visible;
+    }
+  }
+}

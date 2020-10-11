@@ -1,0 +1,31 @@
+<tr class="movie">
+  <td>
+    <div class="dropdown movie-actions">
+      <button id="btn-<%= movie.id %>" class="btn btn-light btn-sm rounded-circle" data-toggle="dropdown">...</button>
+      <ul class="dropdown-menu">
+        <li>
+          <%= link_to 'Edit', edit_movie_path(movie), class: 'dropdown-item' %>
+        </li>
+        <li>
+          <%= link_to 'Delete', movie, method: :delete, class: 'dropdown-item', data: { confirm: 'Are you sure?' } %>
+        </li>
+      </ul>
+    </div>
+  </td>
+
+  <td>
+    <%= movie.title %>
+  </td>
+
+  <td>
+    <%= movie.release_date&.strftime("%b %d, %Y") %>
+  </td>
+
+  <td class="text-truncate" style="max-width: 270px">
+    <%= movie.description %>
+  </td>
+
+  <td>
+    <%= movie.score %>
+  </td>
+</tr>
