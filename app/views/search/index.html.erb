@@ -39,7 +39,7 @@
         There are no content that matched your query.
       <% else %>
         <% @matches && @matches.each do |result| %>
-          <%= render partial: 'result', locals: {result: result} %>
+          <%= render partial: 'result', locals: make_result(result) %>
         <% end %>
 
         <%= render partial: 'pagination' %>

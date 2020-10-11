@@ -9,4 +9,18 @@ module SearchHelper
 
     tag.li(content, class: 'page-item' + (active ? ' active' : ''))
   end
+
+  # Makes a new sanitized hash with result data
+  def make_result(result)
+    date = result['release_date'] || result['first_air_date']
+    image = result['poster_path'] || result['backdrop_path'] || result['profile_path']
+
+    { id: result['id'],
+      img_url: image_url(image),
+      date: date && Time.new(date).strftime('%b %d, %Y'),
+      name: result['title'] || result['name'],
+      overview: result['overview'],
+      media_type: result['media_type'],
+      vote_average: result['vote_average'] || 'N/A' }
+  end
 end
