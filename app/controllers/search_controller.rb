@@ -4,6 +4,7 @@ class SearchController < ApplicationController
   def index
     query = params[:q]
 
+    # A list of tuples with the filter name to be showed, and it's URL parameter value
     @filters = [['All', :all], ['Movies', :movie], ['TV Shows', :tv], ['People', :person]]
 
     response = @tmdb_service.search query, params[:filter], params[:page]
@@ -11,6 +12,7 @@ class SearchController < ApplicationController
     @total_pages = response[:total_pages]
     @matches = response[:results]
 
+    # Gets movies fetched in every search and stores locally
     @movies = filter_movies
     store_movies
   end
@@ -39,6 +41,7 @@ class SearchController < ApplicationController
     Movie.insert_all(movies)
   end
 
+  # If the result has an image, appends tmdb url in, otherwise returns a fallback url
   def image_url(url)
     base_url = 'https://image.tmdb.org/t/p/w300'
     fallback_url = 'https://semantic-ui.com/images/wireframe/white-image.png'
