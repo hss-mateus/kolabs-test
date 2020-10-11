@@ -27,6 +27,8 @@ gem 'jbuilder', '~> 2.7'
 
 gem 'bootstrap', '~> 5.0.0.alpha1'
 gem 'excon'
+gem 'will_paginate'
+gem 'will_paginate-bootstrap4'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false

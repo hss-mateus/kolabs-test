@@ -2,7 +2,7 @@ class MoviesController < ApplicationController
   before_action :movie_by_id_param, only: %i[edit update destroy]
 
   def index
-    @movies = Movie.all
+    @movies = Movie.paginate(page: params[:page])
   end
 
   def new
