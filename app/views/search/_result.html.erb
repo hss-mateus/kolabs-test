@@ -1,4 +1,8 @@
-<% result_url = result['poster_path'] || result['backdrop_path'] || result['profile_path'] %>
+<% result_url = result['poster_path'] || result['backdrop_path'] || result['profile_path']
+date = result['release_date'] || result['first_air_date']
+date = date && Time.new(date).strftime("%b %d, %Y")
+name = result['title'] || result['name']
+%>
 
 <div class="card mb-3 shadow">
   <div class="row">
@@ -9,19 +13,55 @@
     <div class="col-md-10 my-auto">
       <div class="card-body">
         <h6 class="card-title font-weight-bold ">
-          <%= result['title'] || result['name'] %>
+          <%= link_to(name,
+                      "#modal-#{result['id']}",
+                      'data-toggle': 'modal',
+                      class: 'text-decoration-none stretched-link') %>
         </h6>
 
         <p class="card-text">
           <small class="text-muted">
-            <% date = result['release_date'] || result['first_air_date'] %>
-            <%= date && Time.new(date).strftime("%b %d, %Y") %>
+            <%= date %>
           </small>
         </p>
 
         <p class="card-text truncate-2">
           <%= result['overview'] %>
         </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-<%= result['id'] %>">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-3">
+            <%= image_tag image_url(result_url), class: 'w-100 rounded' %>
+          </div>
+          <div class="col">
+            <h5><%= name %></h5>
+
+            <p class="text-muted">
+              <%= date %>
+            </p>
+
+            <% if result['media_type'] != 'person' %>
+              <p class="font-weight-bold">
+                User score:
+                <%= result['vote_average'] || 'N/A' %>
+              </p>
+            <% end %>
+
+            <hr />
+
+            <p>
+              <%= result['overview'] %>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
