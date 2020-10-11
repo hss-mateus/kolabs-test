@@ -4,28 +4,19 @@ class ThemoviedbService
     @api_key = 'e2e6c0526e3737f2381684d2fd63d354'
   end
 
-  def search_movies(query)
-    make_request('movie', query)
-  end
+  def search(query, type, page)
+    type = %w[movie tv person].include?(type) ? type : 'multi'
 
-  def search_tv_shows(query)
-    make_request('tv', query)
-  end
-
-  def search_people(query)
-    make_request('person', query)
-  end
-
-  def search_all(query)
-    make_request('multi', query)
+    make_request(query, type, page)
   end
 
   private
 
-  def make_request(url, query)
-    response = Excon.get("#{@base_url}/search/#{url}",
+  def make_request(query, type, page = 1)
+    response = Excon.get("#{@base_url}/search/#{type}",
                          query: { api_key: @api_key,
-                                  query: query })
+                                  query: query,
+                                  page: page })
 
     JSON.parse(response.body)['results']
   end

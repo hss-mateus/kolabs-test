@@ -6,30 +6,16 @@ class SearchController < ApplicationController
 
     @filters = [['All', :all], ['Movies', :movies], ['TV Shows', :tv_shows], ['People', :people]]
 
-    @matches =
-      case params[:filter]
-      when 'tv_shows'
-        @tmdb_service.search_tv_shows query
-      when 'people'
-        @tmdb_service.search_people query
-      when 'movies'
-        @movies = @tmdb_service.search_movies query
-        store_movies
-        @movies
-      else
-        results = @tmdb_service.search_all query
-        @movies = filter_movies results
-        store_movies
-        results
-      end
+    @matches = @tmdb_service.search query, params[:filter], params[:page]
+
+    @movies = filter_movies
+    store_movies
   end
 
   private
 
-  def filter_movies(results)
-    return if results.nil? || results.empty?
-
-    results.select { |r| r['media_type'] == 'movie' }
+  def filter_movies
+    @matches&.select { |r| r['media_type'] == 'movie' }
   end
 
   def store_movies
