@@ -1,0 +1,28 @@
+<% result_url = result['poster_path'] || result['backdrop_path'] || result['profile_path'] %>
+
+<div class="card mb-3 shadow">
+  <div class="row">
+    <div class="col-md-2 d-flex align-items-center">
+      <%= image_tag image_url(result_url), class: 'w-100 rounded-left' %>
+    </div>
+
+    <div class="col-md-10 my-auto">
+      <div class="card-body">
+        <h6 class="card-title font-weight-bold ">
+          <%= result['title'] || result['name'] %>
+        </h6>
+
+        <p class="card-text">
+          <small class="text-muted">
+            <% date = result['release_date'] || result['first_air_date'] %>
+            <%= date && Time.new(date).strftime("%b %d, %Y") %>
+          </small>
+        </p>
+
+        <p class="card-text truncate-2">
+          <%= result['overview'] %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

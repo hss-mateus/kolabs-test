@@ -1,28 +1,44 @@
-<%= form_with(url: '/', method: 'get') do %>
-  <%= text_field_tag(:q) %>
-  <%= submit_tag('Search') %>
-<% end %>
+<div class="border mb-4">
+  <div class="container">
+    <%= form_with(method: 'get', local: true, class: 'd-flex') do |f| %>
+      <%= f.text_field :q,
+        class: 'form-control shadow-none border-0 py-3 font-italic',
+        placeholder: 'Search for a movie, tv show, person...'
+      %>
+    <% end %>
+  </div>
+</div>
 
+<main class="container-sm px-5">
+  <div class="row">
+    <aside class="col-md-3 p-0">
+      <div class="list-group border">
+        <div class="list-group-item disabled bg-info text-white font-weight-bold p-3">
+          Search Results
+        </div>
 
-<% if @matches.nil? %>
+        <% @filters.each do |filter| %>
+          <% classes = 'list-group-item list-group-item-action list-group-item-light border-0' %>
+          <% classes += params['filter'] == filter[1].to_s ? ' active' : '' %>
 
-  Type above to search
+          <%= link_to filter[0],
+            params.permit(:q, :filter).merge(filter: filter[1]),
+            class: classes
+          %>
+        <% end %>
+      </div>
+    </aside>
 
-<% elsif @matches.empty? %>
-
-  Nothing found
-
-<% else %>
-
-  <% @matches.each do |match| %>
-
-    <% if match['media_type'] == 'movie' %>
-      <%= match['title'] %>
-    <% else  %>
-      <%= match['name'] %>
-    <% end%>
-
-    <br />
-  <% end %>
-
-<% end %>
+    <div class="col-md-9">
+      <% if @matches.nil? %>
+        Search for something in the box above
+      <% elsif @matches.empty? %>
+        There are no content that matched your query.
+      <% else %>
+        <% @matches && @matches.each do |result| %>
+          <%= render partial: 'result', locals: {result: result} %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</main>

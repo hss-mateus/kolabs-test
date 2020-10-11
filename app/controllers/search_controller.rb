@@ -4,6 +4,8 @@ class SearchController < ApplicationController
   def index
     query = params[:q]
 
+    @filters = [['All', :all], ['Movies', :movies], ['TV Shows', :tv_shows], ['People', :people]]
+
     @matches =
       case params[:filter]
       when 'tv_shows'
@@ -34,13 +36,11 @@ class SearchController < ApplicationController
     return if @movies.nil? || @movies.empty?
 
     movies = @movies.map do |m|
-      return nil if m['poster_path'].nil?
-
       { id: m['id'],
         title: m['original_title'],
         release_date: m['release_date'],
         description: m['overview'],
-        poster: 'https://image.tmdb.org/t/p/w300' + m['poster_path'],
+        poster: image_url(m['poster_path']),
         score: m['vote_average'],
         genres: m['genre_ids'].join(','),
         created_at: Time.now,
@@ -49,6 +49,15 @@ class SearchController < ApplicationController
 
     Movie.insert_all(movies)
   end
+
+  def image_url(url)
+    base_url = 'https://image.tmdb.org/t/p/w300'
+    fallback_url = 'https://semantic-ui.com/images/wireframe/white-image.png'
+
+    url.dup&.prepend(base_url) || fallback_url
+  end
+
+  helper_method :image_url
 
   def tmdb_service
     @tmdb_service = ThemoviedbService.new
