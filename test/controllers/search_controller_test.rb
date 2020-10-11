@@ -5,4 +5,11 @@ class SearchControllerTest < ActionDispatch::IntegrationTest
     get root_path
     assert_response :success
   end
+
+  test 'should provide correct title' do
+    get root_path, params: { q: 'foo' }
+
+    assert_response :success
+    assert_select 'title', 'foo - Movie Search'
+  end
 end
