@@ -17,6 +17,7 @@ before_script:
 
 script:
   - bundle exec rake
+  - rm -rf public/assets
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
@@ -27,4 +28,3 @@ deploy:
   edge: true
   run:
     - rake db:migrate
-    - rake assets:precompile
