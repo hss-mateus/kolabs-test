@@ -19,7 +19,7 @@ $ git clone https://github.com/hss-mateus/kolabs-test
 $ cd kolabs-test
 
 # Install dependencies
-$ bundle install
+$ bundle install && yarn
 
 # To launch the application
 $ rails server
