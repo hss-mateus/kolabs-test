@@ -20,3 +20,11 @@ script:
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+
+deploy:
+  provider: heroku
+  api_key: $HEROKU_KEY
+  edge: true
+  run:
+    - rake db:migrate
+    - rake assets:precompile
