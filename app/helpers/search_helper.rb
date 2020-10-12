@@ -2,12 +2,14 @@ module SearchHelper
   # Generate a single pagination item based on it's active state
   def pagination_item(text, page, active = false)
     if active
-      content = tag.span(text, class: 'page-link') if active
+      content = tag.span(text, class: 'page-link')
+      classes = 'page-item active'
     else
       content = link_to(text, params.permit(:q, :filter, :page).merge(page: page), class: 'page-link')
+      classes = 'page-item'
     end
 
-    tag.li(content, class: 'page-item' + (active ? ' active' : ''))
+    tag.li(content, class: classes)
   end
 
   # Makes a new sanitized hash with result data
