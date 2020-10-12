@@ -20,6 +20,7 @@ class MoviesController < ApplicationController
   end
 
   def edit
+    redirect_to movies_url if @movie.nil?
   end
 
   def update
@@ -31,7 +32,7 @@ class MoviesController < ApplicationController
   end
 
   def destroy
-    @movie.destroy
+    @movie&.destroy
 
     redirect_to movies_url
   end

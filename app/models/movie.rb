@@ -7,5 +7,5 @@ class Movie < ApplicationRecord
     :genres,
     presence: true
 
-  validates :title, :poster, uniqueness: { case_sensitive: false }
+  validates :title, uniqueness: { case_sensitive: false }
 end
