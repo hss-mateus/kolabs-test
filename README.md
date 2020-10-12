@@ -1,24 +1,31 @@
-# README
+# Media Search
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple search tool to lookup for movies, TV shows and people.
 
-Things you may want to cover:
+![Travis (.com)](https://img.shields.io/travis/com/hss-mateus/kolabs-test?style=flat-square&logo=travis-ci&logoColor=white&labelColor=000000)
+![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/hss-mateus/kolabs-test?style=flat-square&logo=code-climate&labelColor=000000)
+![Code Climate coverage](https://img.shields.io/codeclimate/coverage/hss-mateus/kolabs-test?style=flat-square&logo=code-climate&labelColor=000000)
 
-* Ruby version
+## Requirements
 
-* System dependencies
+This project was build using `ruby >= 2.7.1` and `node.js >= 14.11.0`, but you
+can also try using a older version.
 
-* Configuration
+## Building and Running
 
-* Database creation
+```sh
+# Get a local copy
+$ git clone https://github.com/hss-mateus/kolabs-test
+$ cd kolabs-test
 
-* Database initialization
+# Install dependencies
+$ bundle install
 
-* How to run the test suite
+# To launch the application
+$ rails server
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# To run tests
+$ rails test
+# Or
+$ rake
+```
